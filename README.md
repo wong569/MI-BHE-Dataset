@@ -1,39 +1,39 @@
 # BCI Motor Imagery Dataset
 
-## 数据集简介
+## Dataset Overview
 
-本数据集是一个四分类运动想象脑机接口（BCI）数据集，包含3名健康被试的脑电（EEG）信号数据。数据集采用标准的运动想象范式，可用于BCI算法研究、机器学习模型训练和神经科学研究。
+This is a four-class motor imagery brain-computer interface (BCI) dataset containing electroencephalogram (EEG) signals from 3 healthy subjects. The dataset adopts a standard motor imagery paradigm and can be used for BCI algorithm research, machine learning model training, and neuroscience research.
 
-## 实验设计
+## Experimental Design
 
-### 运动想象任务
-- **分类类别**: 四分类
-  - 左手运动想象（Left Hand）
-  - 右手运动想象（Right Hand）
-  - 双脚运动想象（Both Feet）
-  - 舌头运动想象（Tongue）
+### Motor Imagery Tasks
+- **Classification Categories**: Four classes
+  - Left Hand Motor Imagery
+  - Right Hand Motor Imagery
+  - Both Feet Motor Imagery
+  - Tongue Motor Imagery
 
-### Trial时序结构
-每个trial包含以下阶段，总时长约9.25秒：
-1. **注视期** (Fixation): 2秒 - 被试注视屏幕中央的十字
-2. **提示期** (Cue): 1.25秒 - 显示运动想象任务提示
-3. **执行期** (Execution): 4秒 - 被试执行运动想象
-4. **休息期** (Rest): 2秒 - 放松准备下一个trial
+### Trial Temporal Structure
+Each trial contains the following stages with a total duration of approximately 9.25 seconds:
+1. **Fixation**: 2 seconds - Subject fixates on a cross at the center of the screen
+2. **Cue**: 1.25 seconds - Display of motor imagery task prompt
+3. **Execution**: 4 seconds - Subject performs motor imagery
+4. **Rest**: 2 seconds - Relaxation in preparation for the next trial
 
 ```
-[注视 2s] → [提示 1.25s] → [执行 4s] → [休息 2s]
-    ↓            ↓            ↓           ↓
-   准备        任务提示    运动想象      放松
+[Fixation 2s] → [Cue 1.25s] → [Execution 4s] → [Rest 2s]
+       ↓              ↓              ↓            ↓
+    Prepare      Task Prompt    Motor Imagery   Relax
 ```
 
-## 数据采集参数
+## Data Acquisition Parameters
 
-### 硬件配置
-- **采样率**: 250 Hz
-- **通道数**: 8
-- **电极位置**: F3, F4, Fz, C3, C4, Cz, P3, P4（国际10-20系统）
+### Hardware Configuration
+- **Sampling Rate**: 250 Hz
+- **Number of Channels**: 8
+- **Electrode Positions**: F3, F4, Fz, C3, C4, Cz, P3, P4 (International 10-20 system)
 
-### 电极布局
+### Electrode Layout
 ```
         Fz
     F3      F4
@@ -45,56 +45,54 @@
     P3      P4
 ```
 
-## 被试信息
+## Subject Information
 
-- **总被试数**: 3人
-- **每人实验次数**: 3次
-- **每次实验trials**: 200个
-- **总trials数**: 1800个
+- **Total Number of Subjects**: 3
+- **Experiments per Subject**: 3 sessions
+- **Trials per Experiment**: 200
+- **Total Number of Trials**: 1,800
 
+## Data Format Description
 
-## 数据格式说明
+NumPy compressed format containing:
+- `data`: EEG data array with shape (n_trials, n_samples, n_channels)
+- `labels`: Label array with shape (n_trials,)
+  - 0: Left hand
+  - 1: Right hand
+  - 2: Both feet
+  - 3: Tongue
+- `channel_names`: List of channel names
+- `sampling_rate`: Sampling rate
+- `experiment_id`: Experiment ID
 
-NumPy压缩格式，包含：
-- `data`: EEG数据数组，形状为 (n_trials, n_samples, n_channels)
-- `labels`: 标签数组，形状为 (n_trials,)
-  - 0: 左手
-  - 1: 右手
-  - 2: 双脚
-  - 3: 舌头
-- `channel_names`: 通道名称列表
-- `sampling_rate`: 采样率
-- `experiment_id`: 实验ID
+## Usage
 
-
-## 使用方法
-
-### 1. 环境要求
+### 1. Environment Requirements
 ```bash
 pip install numpy pandas
 ```
 
-### 2. 加载数据
+### 2. Loading Data
 ```python
 import numpy as np
 
-# 加载数据
+# Load data
 data = np.load('processed_011.npz', allow_pickle=True)
 
-# 提取数据
-eeg_data = data['data']        # (200, ~2312, 8) - 200个trials
-labels = data['labels']         # (200,) - 标签
-channels = data['channel_names']  # 通道名称
-sampling_rate = data['sampling_rate']  # 250 Hz
+# Extract data
+eeg_data = data['data']              # (200, ~2312, 8) - 200 trials
+labels = data['labels']               # (200,) - labels
+channels = data['channel_names']      # channel names
+sampling_rate = data['sampling_rate'] # 250 Hz
 
-print(f"数据形状: {eeg_data.shape}")
-print(f"标签形状: {labels.shape}")
-print(f"标签分布: {np.bincount(labels)}")
+print(f"Data shape: {eeg_data.shape}")
+print(f"Labels shape: {labels.shape}")
+print(f"Label distribution: {np.bincount(labels)}")
 ```
 
-## 引用
+## Citation
 
-如果您使用了本数据集，请引用：
+If you use this dataset, please cite:
 
 ```bibtex
 @dataset{bci_motor_imagery_2025,
@@ -106,11 +104,10 @@ print(f"标签分布: {np.bincount(labels)}")
 }
 ```
 
-## 许可证
+## License
 
-本数据集采用 [MIT License / CC BY 4.0 / 其他] 许可证发布。
+This dataset is released under the [MIT License / CC BY 4.0 / Other] license.
 
+## Acknowledgments
 
-## 致谢
-
-感谢所有参与数据采集的被试。
+We thank all subjects who participated in the data collection.
