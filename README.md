@@ -106,7 +106,7 @@ If you use this dataset, please cite:
 
 ## License
 
-This dataset is released under the [MIT License / CC BY 4.0 / Other] license.
+This dataset is released under the MIT License license.
 
 ## Acknowledgments
 
